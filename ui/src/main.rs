@@ -12,6 +12,8 @@ use linux_video::{
 };
 use std::sync::Arc;
 
+use zune_jpeg::JpegDecoder as ZuneJpegDecoder;
+
 const CARD: &'static str = "USB 2.0 Camera: HD USB Camera";
 const CAPS_REQ_1: CapabilityFlag = CapabilityFlag::VideoCapture;
 const CAPS_REQ_2: CapabilityFlag = CapabilityFlag::ExtPixFormat;
@@ -157,6 +159,12 @@ impl eframe::App for MyApp {
                 .and_then(|buf_ref| {
                     let locked = buf_ref.lock();
                     let buf = locked.as_ref();
+
+                    let mut z = ZuneJpegDecoder::new(buf);
+                    if let Err(err) = z.decode() {
+                        println!("zune decoder error: {}", err);
+                    }
+
                     JpegDecoder::new(buf)
                         .map_err(|err| anyhow::Error::msg(format!("cannot get decoder: {}", err)))
                         .and_then(|decoder| {

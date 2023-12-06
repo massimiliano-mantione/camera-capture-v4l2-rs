@@ -12,3 +12,5 @@ egui_extras = "0.24.1"
 epaint = "0.24.1"
 image = { version = "0.24.7", features = ["jpeg", "png"] }
 anyhow = "1.0.75"
+
+zune-jpeg = { path = "../zune-image/crates/zune-jpeg" }

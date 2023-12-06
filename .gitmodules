@@ -1,0 +1,3 @@
+[submodule "zune-image"]
+	path = zune-image
+	url = git@github.com:massimiliano-mantione/zune-image.git
